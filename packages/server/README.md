@@ -1,3 +1,9 @@
+#Server
+
+This folder houses the files for the server that runs our application.
+When you run the yarn start command, the files in this folder are executed.
+See information below on the server framework we are using, Nest.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
