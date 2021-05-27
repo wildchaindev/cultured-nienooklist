@@ -1,4 +1,4 @@
-#Server
+##Server
 
 This folder houses the files for the server that runs our application.
 When you run the yarn start command, the files in this folder are executed.
