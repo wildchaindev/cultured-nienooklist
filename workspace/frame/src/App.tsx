@@ -64,7 +64,7 @@ export const App: React.FC = () => {
     <div>
       <header>
         <div className="logo">
-          <img src="./decentology-logo-light.svg" width="133" alt="logo" />
+          <img src="./logo1.png" width="133" alt="logo" />
         </div>
         <nav>
           <ul>
@@ -191,15 +191,6 @@ export const App: React.FC = () => {
               <i className="fas fa-spinner fa-spin text-yellow-400 text-5xl"></i>
             </div>
           )}
-        </div>
-        <div className="main-footer">
-          <div className="docs">
-            <a href="https://support.decentology.com/">Support Documentation</a>
-          </div>
-          <span className="footer-left">Powered by Decentology</span>
-          <span className="footer-right">
-            <a href="https://www.decentology.com">www.decentology.com</a>
-          </span>
         </div>
       </main>
     </div>
