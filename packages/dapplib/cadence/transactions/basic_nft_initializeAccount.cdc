@@ -13,7 +13,7 @@ transaction {
         acct.save<@DappState.Collection>(<-collection, to: /storage/NFTCollection)
 
         // create a public capability for the Collection
-        acct.link<&DappState.NFTReceiver>(/public/NFTReceiver, target: /storage/NFTCollection)
+        acct.link<&AnyResource{DappState.NFTReceiver}>(/public/NFTReceiver, target: /storage/NFTCollection)
 
         // TODO: Event handling is not fully implemented
         //emit DappState.InitializeAccount(acct.address : String)
