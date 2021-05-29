@@ -38,7 +38,7 @@ export default class HarnessPage extends LitElement {
         "category": "Non-fungible Tokens",
         "route": "/basic_nft"
     }
-]; 
+  ]; 
   }
 
   handleClick = e => {

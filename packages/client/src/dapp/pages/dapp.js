@@ -49,13 +49,13 @@ export default class DappPage extends LitElement {
               <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
             </div>
             <div class="column">
-              <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
+              <img src=${bronx} width="133" alt="BronxZooLogo" title="BronxZoo"/>
             </div>
             <div class="column">
-              <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
+              <img src=${oak} width="133" alt="OakZooLogo" title="OakZoo"/>
             </div>
             <div class="column">
-              <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
+              <img src=${elm} width="133" alt="ElmZooLogo" title="ElmZoo"/>
             </div>
           </div>
         </div>
