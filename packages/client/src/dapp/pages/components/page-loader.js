@@ -52,7 +52,7 @@ export default class PageLoader extends LitElement {
         await import(`../../pages/harness/${pageItem.name}-page.js`);
       }
       let pageName = pageItem.name.replace("_", "-") + "-page";
-
+      console.log(pageName);
       this.pageContent = DOM.create(pageName, {
         title: pageItem.title,
         description: pageItem.description,
