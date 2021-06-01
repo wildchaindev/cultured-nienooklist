@@ -35,7 +35,21 @@ export default class TestPage extends LitElement {
         <div class="container m-auto">
             <div class="row fadeIn mt-3 p-2 block">
             <p class="mt-3">
-                Welcome to the test page!          
+                Welcome to the test page!   
+                <action-card
+                  title="Mint NFT"
+                  description="Mints an NFT"
+                  action="mintNFT"
+                  method="post"
+                  fields="account"
+                 >
+                  <account-widget
+                    field="account"
+                    label="Account"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                </action-card>       
             </p>
             </div>
         </div>
