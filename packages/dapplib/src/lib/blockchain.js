@@ -39,6 +39,7 @@ module.exports = class Blockchain {
      * @dev Calls a writeable smart contract function
      */
     static async post(env, tx, args) {
+        console.log("Testing Post")
         let proposer = typeof env.roles.proposer === 'string' ? env.roles.proposer : env.config.accounts[0];
         let roleInfo = {
             [Flow.Roles.PROPOSER]: proposer,
@@ -66,7 +67,9 @@ module.exports = class Blockchain {
 
         let flow = new Flow(env.config);
         let response = await flow.executeTransaction(DappTransactions[tx](env.imports), options);
-
+        let resultData = await Flow.decode(response);
+        console.log("response: " + response)
+        console.log("resultData: " + resultData)
         return {
             callAccount: proposer,
             callData: response
