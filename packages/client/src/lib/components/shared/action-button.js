@@ -77,9 +77,11 @@ export default class ActionButton extends LitElement {
     });
 
     try {
-      //console.log('Last call, values: ', this.action, values);
+      console.log('Last call, values: ', this.action, values);
       let retVal = await DappLib[this.action].call(null, values);
+      console.log('retVal: ', retVal);
       let resultNode = DappLib.getFormattedResultNode(retVal, this.return);
+      console.log('resultNode: ', resultNode);
       this.fireClickEvent(retVal, resultNode);
     } catch (e) {
       if (e.message.indexOf("run Out of Gas") > -1) {
