@@ -31,8 +31,14 @@ export default class DappPage extends LitElement {
   }
   constructor(args) {
     super(args);
+    //let result = DappLib.mintNFT();
+    //console.log(result);
   }
 
+  testMint = async e => {
+    //let result = await DappLib.mintNFT("01cf0e2f2f715450");
+    //console.log("Testing Minter: "+result);
+  }
 
   render() {
     let content = html`
@@ -45,8 +51,24 @@ export default class DappPage extends LitElement {
             <li class="mt-3">Customize this page by editing <i>packages/client/src/pages/dapp.js</i></li>
           </ul>
           <div class="row">
-            <div class="column">
+            <div id="sdbutton" class="column">
               <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
+              <input 
+                type="hidden"
+                data-field="account"
+                value='01cf0e2f2f715450'>
+              <action-button
+                  source="#sdbutton"
+                  title="Mint NFT"
+                  description="Mints an NFT"
+                  action="mintNFT"
+                  method="post"
+                  fields="account"
+                  text="Mint NFT"
+                  class="mt-4"
+                  .click=${this.testMint}
+                 >
+                </action-button¯>    
             </div>
             <div class="column">
               <img src=${bronx} width="133" alt="BronxZooLogo" title="BronxZoo"/>
