@@ -27,6 +27,30 @@ static async getAccountInfo(data) {
     }
 }
 
+static async mintNFT(data) {
+    console.log("Data val: " + data.account);
+    let result = await Blockchain.post({
+        config: DappLib.getConfig(),
+        imports: {
+            DappState: data.account
+        },
+        roles: {
+            proposer: data.account
+        }
+    },
+    'mint_test',
+    //{
+    //    account: '0x' + data.account
+    //}
+);
+
+return {
+    type: DappLib.DAPP_RESULT_ARRAY,
+    label: 'NFT IDs',
+    result: result.callData || []
+}
+}
+
 static async initializeAccount(data) {
 
     let result = await Blockchain.post({
