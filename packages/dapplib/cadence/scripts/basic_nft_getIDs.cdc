@@ -1,8 +1,8 @@
 
-pub fun main(account) : [UInt64]? {
+pub fun main(account: Address) : [UInt64]? {
     let account = getAccount(account)
-    let capability = account.getCapability(/public/NFTReceiver)
-    let ref = capability!.borrow<&DappState.Collection>()
+    let capability = account.getCapability(/public/NFTReceiver) 
+    let ref = capability.borrow<&{DappState.NFTReceiver}>() ?? panic("Could not borrow account receiver reference")
 
     return ref?.getIDs()
 }
