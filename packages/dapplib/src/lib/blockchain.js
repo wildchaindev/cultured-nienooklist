@@ -29,6 +29,8 @@ module.exports = class Blockchain {
         let flow = new Flow(env.config);
         let response = await flow.executeTransaction(DappScripts[tx](env.imports), options);
         let resultData = await Flow.decode(response);
+        console.log("response: " + response)
+        console.log("resultData: " + resultData)
         return {
             callAccount: null,
             callData: resultData
