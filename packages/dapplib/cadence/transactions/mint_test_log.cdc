@@ -20,11 +20,11 @@ transaction {
         //emit DappState.InitializeAccount(acct.address : String)
     }
 
-    execute {
+    execute{
         // Use the minter reference to mint an NFT, which deposits
         // the NFT into the collection that is sent as a parameter.
         self.minterRef.mintNFT(recipient: self.receiverRef)
-        log(self.receiverRef.getIDs())
         log("NFT Minted and deposited to Admin's Collection")
+        return self.receiverRef.getIDs())
     }
 }
