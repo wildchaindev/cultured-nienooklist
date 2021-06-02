@@ -46,6 +46,7 @@ export default class ActionCard extends LitElement {
   handleClick = e => {
     if (this.action) {
       let resultPanel = document.getElementById("resultPanel");
+      console.log(e.detail.info.type);
       if (e.detail.info.type === DappLib.DAPP_RESULT_ERROR) {
         resultPanel.prepend(e.detail.node);
         resultPanel.open();
