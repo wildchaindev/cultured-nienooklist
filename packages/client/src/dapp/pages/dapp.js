@@ -84,18 +84,19 @@ export default class DappPage extends LitElement {
         <div class="container m-auto">
         
         <action-card
-          title="SanDiegoZoo"
-          description="An example of how to query an account during development"
-          action="getAccountInfo"
-          method="get"
-          fields="account"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
+                  title="Get NFT IDs"
+                  description="Gets NFT IDs for Account"
+                  action="getIDs"
+                  method="get"
+                  fields="account"
+                 >
+                  <account-widget
+                    field="account"
+                    label="Account"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                </action-card>
           </div>
       </div>
     `;
