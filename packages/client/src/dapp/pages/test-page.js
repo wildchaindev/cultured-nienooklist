@@ -49,7 +49,46 @@ export default class TestPage extends LitElement {
                     placeholder="Account address"
                     >
                   </account-widget>
-                </action-card>       
+                </action-card>  
+                <action-card
+                  title="Get NFT IDs"
+                  description="Gets NFT IDs for Account"
+                  action="getIDs"
+                  method="get"
+                  fields="account"
+                 >
+                  <account-widget
+                    field="account"
+                    label="Account"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                </action-card>
+                <action-card
+                  title="Transfer NFT"
+                  description="Transfer NFT to another account"
+                  action="transferNFT"
+                  method="post"
+                  fields="sender" "receiver" "id"
+                 >
+                 <label for="NFT-ID" class="mt-3"><b>NFT ID</b></label><br>
+                 <input
+                 id="NFT-ID"
+                 data-field="id"
+                 value='1'>
+                  <account-widget
+                    field="sender"
+                    label="Sender"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                  <account-widget
+                    field="receiver"
+                    label="Receiver"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                </action-card>     
             </p>
             </div>
         </div>
