@@ -27,30 +27,6 @@ static async getAccountInfo(data) {
     }
 }
 
-static async mintNFT(data) {
-    console.log("Data val: " + data.account);
-    let result = await Blockchain.post({
-        config: DappLib.getConfig(),
-        imports: {
-            DappState: data.account
-        },
-        roles: {
-            proposer: data.account
-        }
-    },
-    'mint_test',
-    //{
-    //    account: '0x' + data.account
-    //}
-);
-
-return {
-    type: DappLib.DAPP_RESULT_ARRAY,
-    label: 'NFT IDs',
-    result: result.callData || []
-}
-}
-
 static async initializeAccount(data) {
 
     let result = await Blockchain.post({
@@ -80,9 +56,59 @@ static async initializeAccount(data) {
 
 }
 
+static async mintNFT(data) {
+    console.log("Data val: " + data.account);
+    let result = await Blockchain.post({
+        config: DappLib.getConfig(),
+        imports: {
+            DappState: data.account
+        },
+        roles: {
+            proposer: data.account
+        }
+    },
+    'mint_test',
+    //{
+    //    account: '0x' + data.account
+    //}
+);
+
+return {
+    type: DappLib.DAPP_RESULT_ARRAY,
+    label: 'NFT IDs',
+    result: result.callData || []
+}
+}
+
+// In Progress
+static async transferNFT(data) {
+    let result = await Blockchain.post({
+        config: DappLib.getConfig(),
+        imports: {
+            DappState: data.account
+        },
+        roles: {
+            proposer: data.account
+        }
+    },
+    'transfer_test',
+    //{
+    //    account: '0x' + data.account
+    //}
+);
+
+return {
+    type: DappLib.DAPP_RESULT_TX_HASH,
+    label: 'Transaction Hash',
+    result: result.callData.transactionId
+}
+}
 
 static async getIDs(data) {
-
+    console.log("Testing ID Get");
+    console.log(data.account);
+    data.account = data.account.replace(/^0x/, '');
+    console.log(data.account);
     let result = await Blockchain.get({
             config: DappLib.getConfig(),
             imports: {
@@ -92,10 +118,10 @@ static async getIDs(data) {
                 proposer: data.account
             }
         },
-        'basic_nft_getIDs',
-        {
-            account: '0x' + data.account
-        }
+        'getID',
+        //{
+        //    account: '0x' + data.account
+        //}
     );
 
     return {
