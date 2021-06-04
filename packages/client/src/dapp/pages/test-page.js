@@ -83,7 +83,7 @@ export default class TestPage extends LitElement {
                   description="Transfer NFT to another account"
                   action="transferNFT"
                   method="post"
-                  fields="sender" "receiver" "id"
+                  fields="sender receiver id"
                  >
                  <label for="NFT-ID" class="mt-3"><b>NFT ID</b></label><br>
                  <input
