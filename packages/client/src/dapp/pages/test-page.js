@@ -37,6 +37,20 @@ export default class TestPage extends LitElement {
             <p class="mt-3">
                 Welcome to the test page!   
                 <action-card
+                  title="Deploy Contract"
+                  description="Deploys DappState to Account"
+                  action="deploy"
+                  method="deployContract"
+                  fields="account"
+                 >
+                  <account-widget
+                    field="account"
+                    label="Account"
+                    placeholder="Account address"
+                    >
+                  </account-widget>
+                </action-card>  
+                <action-card
                   title="Mint NFT"
                   description="Mints an NFT"
                   action="mintNFT"
@@ -69,7 +83,7 @@ export default class TestPage extends LitElement {
                   description="Transfer NFT to another account"
                   action="transferNFT"
                   method="post"
-                  fields="sender" "receiver" "id"
+                  fields="sender receiver id"
                  >
                  <label for="NFT-ID" class="mt-3"><b>NFT ID</b></label><br>
                  <input

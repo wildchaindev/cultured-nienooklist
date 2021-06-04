@@ -1,6 +1,11 @@
 # WildChain Updates
 
--Working on adding buttons that can allow transactions to be sent to Flow Network.
+-Working on adding buttons that can allow transactions to be sent to Flow Network: ✅<br/>
+-NFT Minting card implemented: ✅<br/>
+-View NFT IDs card implemented: ✅<br/>
+-NFT Transfer card implemented (Accounts need to be initialized to receive NFTs): ✅<br/>
+-Changing page to view an account's NFTs: 🚧<br/>
+-Adding IPFS support: 🚧
 
 # Pre-requisites
 

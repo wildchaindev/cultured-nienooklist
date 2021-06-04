@@ -51,7 +51,7 @@ export default class ActionCard extends LitElement {
         resultPanel.prepend(e.detail.node);
         resultPanel.open();
       } else {
-        if (this.method === "get" || this.method === 'post') {
+        if (this.method === "get" || this.method === 'post' || this.method === "deployContract") {
           let existing = this.querySelectorAll(
             `#card-body-${this.action} .note`
           );

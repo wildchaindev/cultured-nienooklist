@@ -11,17 +11,28 @@ module.exports = class Blockchain {
      * @dev Calls a read-only smart contract function
      */
     static async get(env, tx, args) {
+        //console.log("Get Debugging")
         let options = {
         }
         if (args) {
+            //console.log("Arguments Present")
             options.args = [];
             for(let arg in args) {
+                //console.log("Arg: " + arg)
+                //console.log(typeof args[arg])
                 if (typeof args[arg] === 'String') {
                     options.args.push({
                         value: args[arg],
                         type: t.String
                     });
-                } else {
+                } else if (typeof args[arg] === 'string'){ // Temporary Solution
+                    console.log("Pushed");
+                    options.args.push({
+                        value: args[arg],
+                        type: t.Address
+                    });
+                }
+                else {
                     options.args.push(args[arg]);
                 }
             }
@@ -54,14 +65,31 @@ module.exports = class Blockchain {
         }
 
         if (args) {
+            console.log("Arguments Present")
             options.args = [];
             for(let arg in args) {
+                console.log("Arg: " + arg)
+                console.log(typeof args[arg])
                 if (typeof args[arg] === 'String') {
                     options.args.push({
                         value: args[arg],
                         type: t.String
                     });
-                } else {
+                } else if (typeof args[arg] === 'string'){ // Temporary Solution
+                    console.log("Pushed");
+                    options.args.push({
+                        value: args[arg],
+                        type: t.Address
+                    });
+                }
+                else if (typeof args[arg] === 'number'){ // Temporary Solution
+                    console.log("Pushed num");
+                    options.args.push({
+                        value: args[arg],
+                        type: t.UInt64
+                    });
+                }
+                else {
                     options.args.push(args[arg]);
                 }
             }

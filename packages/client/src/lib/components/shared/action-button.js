@@ -39,6 +39,19 @@ export default class ActionButton extends LitElement {
   render() {
     this.clicked = false;
     this.classList.remove("disabled");
+    if (this.method === "deployContract"){
+      return html`
+      <button
+        @click=${this.clickHandler}
+        class="text-white font-bold py-2 px-8 rounded ${this.method === "deployContract"
+        ? "bg-orange-500 hover:bg-orange-700"
+        : "bg-green-500 hover:bg-green-700"}"
+      >
+        ${(this.text ? this.text : (this.method === "deployContract" ? "Deploy" : "View")).toUpperCase()}
+      </button>
+    `;
+    }
+    else{
     return html`
       <button
         @click=${this.clickHandler}
@@ -49,6 +62,7 @@ export default class ActionButton extends LitElement {
         ${(this.text ? this.text : (this.method === "post" ? "Submit" : "View")).toUpperCase()}
       </button>
     `;
+    }
   }
 
   async clickHandler() {
@@ -60,7 +74,9 @@ export default class ActionButton extends LitElement {
     // Capture values of all fields of interest
     let source = document.querySelector(this.source);
     let values = {};
+    console.log("Fields: " + this.fields)
     let fields = this.fields.split(" ");
+    console.log("Fields Split: " + fields)
     fields.map(field => {
       if (field) {
         let fieldElement = source.querySelector(`[data-field=${field}]`);
