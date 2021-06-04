@@ -246,7 +246,7 @@ static async transferNFT(data) {
     },
     'transfer_test',
     {
-        nftID: data.id,
+        nftID: parseInt(data.id),
         receiver: data.receiver
     }
 );
