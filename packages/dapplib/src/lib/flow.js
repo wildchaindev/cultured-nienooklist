@@ -153,6 +153,7 @@ class Flow {
     }
 
     async executeTransaction(tx, options) {
+        //console.log("optParams: " + options.params)
         return await this._processTransaction(tx, options);
     }
 
@@ -218,6 +219,7 @@ class Flow {
 
         // If there are any params, add those here
         if (options.params && Array.isArray(options.params)) {
+            console.log("optParams: " + options.params)
             let params = [];
             options.params.forEach((param) => {
                 params.push(fcl.param(param.value, param.type, param.name));
