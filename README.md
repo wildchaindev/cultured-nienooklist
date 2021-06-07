@@ -5,7 +5,8 @@
 -View NFT IDs card implemented: ✅<br/>
 -NFT Transfer card implemented (Accounts need to be initialized to receive NFTs): ✅<br/>
 -Changing page to view an account's NFTs: 🚧<br/>
--Adding IPFS support: 🚧
+-Adding IPFS support: 🚧<br/>
+-Logging into Accounts: 🚧
 
 # Pre-requisites
 
