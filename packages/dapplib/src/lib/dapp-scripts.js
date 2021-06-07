@@ -46,12 +46,11 @@ module.exports = class DappScripts {
 	static testGetID(imports) {
 		return fcl.script`
 				
-				// Print the NFTs owned by accounts 0x01 and 0x02.
 				${DappScripts.injectImports(imports)}
-				pub fun main() : [UInt64]?{
+				pub fun main(account: Address) : [UInt64]?{
 				
 				    // Get both public account objects
-				    let account1 = getAccount(0x01cf0e2f2f715450)
+				    let account1 = getAccount(account)
 				
 				    // Find the public Receiver capability for their Collections
 				    let acct1Capability = account1.getCapability(/public/NFTReceiver)
