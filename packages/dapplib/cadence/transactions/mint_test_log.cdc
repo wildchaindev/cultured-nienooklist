@@ -25,6 +25,6 @@ transaction {
         // the NFT into the collection that is sent as a parameter.
         self.minterRef.mintNFT(recipient: self.receiverRef)
         log("NFT Minted and deposited to Admin's Collection")
-        return self.receiverRef.getIDs())
+        return self.receiverRef.getIDs()
     }
 }
