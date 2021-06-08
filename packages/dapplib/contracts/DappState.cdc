@@ -6,7 +6,7 @@ pub contract DappState {
         // The unique ID that differentiates each NFT
         pub let id: UInt64
 
-        // Initialize both fields in the init function
+        // Initialize fields in the init function
         init(initID: UInt64) {
             self.id = initID
         }
@@ -15,14 +15,16 @@ pub contract DappState {
     // We define this interface purely as a way to allow users
     // to create public, restricted references to their NFT Collection.
     // They would use this to only expose the deposit, getIDs,
-    // and idExists fields in their Collection
+    // idExists, and getMetadata fields in their Collection
     pub resource interface NFTReceiver {
 
-        pub fun deposit(token: @NFT) 
+        pub fun deposit(token: @NFT, metadata: {String : String}) 
 
         pub fun getIDs(): [UInt64]
 
         pub fun idExists(id: UInt64): Bool
+
+        pub fun getMetadata(id: UInt64): {String : String}
     }
 
     // The definition of the Collection resource that
@@ -30,11 +32,20 @@ pub contract DappState {
     pub resource Collection: NFTReceiver {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
+        
+        // ownedNFTs keeps track of all NFTs a user owns 
         pub var ownedNFTs: @{UInt64: NFT}
 
-        // Initialize the NFTs field to an empty collection
+        // metadataObjs extends Flow NFT contract functionality to 
+        // map an NFT's token id to its associated metadata--
+        // which means you need the NFT's token id before you can set this var.
+        pub var metadataObjs: {UInt64: {String : String}}
+
+        // Initialize the ownedNFTs field to an empty collection (for NFTs),
+        // and the metadataObjs field to an empty dictionary (for Strings)
         init () {
             self.ownedNFTs <- {}
+            self.metadataObjs = {}
         }
 
         // withdraw 
@@ -50,12 +61,26 @@ pub contract DappState {
 
         // deposit 
         //
-        // Function that takes a NFT as an argument and 
-        // adds it to the collections dictionary
-        pub fun deposit(token: @NFT) {
-            // add the new token to the dictionary which removes the old one
-            let oldToken <- self.ownedNFTs[token.id] <- token
-            destroy oldToken
+        // Function that takes an NFT and its metadata as an argument, and 
+        // adds the NFT to the collections dictionary and
+        // adds its associated metadata to the metadata dictionary.
+        // NOTE: to make sure that only the minter of the token can add
+        // metadata to the token, the addition of metadata is confined to the minting execution.
+        pub fun deposit(token: @NFT, metadata: {String : String}) {
+            self.metadataObjs[token.id] = metadata
+            self.ownedNFTS[token.id] <-! token
+            // As opposed to this other technique,
+            // adding the new token to the dictionary which removes the old one:
+            //let oldToken <- self.ownedNFTs[token.id] <- token
+            //destroy oldToken
+        }
+
+        pub fun updateMetadata(id: UInt64, metadata: {String: String}) {
+            self.metadataObjs[id] = metadata
+        }
+
+        pub fun getMetadata(id: UInt64): {String : String} {
+            return self.metadataObjs[id]!
         }
 
         // idExists checks to see if a NFT 
@@ -86,9 +111,9 @@ pub contract DappState {
     pub resource NFTMinter {
 
         // the ID that is used to mint NFTs
-        // it is onlt incremented so that NFT ids remain
+        // it is only incremented so that NFT ids remain
         // unique. It also keeps track of the total number of NFTs
-        // in existence
+        // in existence.
         pub var idCount: UInt64
 
         init() {
@@ -98,18 +123,21 @@ pub contract DappState {
         // mintNFT 
         //
         // Function that mints a new NFT with a new ID
-        // and deposits it in the recipients collection 
-        // using their collection reference
-        pub fun mintNFT(recipient: &AnyResource{NFTReceiver}) {
+        // and, instead of depositing the NFT into a specific recipient's collection storage location,
+        // just returns the NFT itself!
+        pub fun mintNFT() @NFT {
 
-            // create a new NFT
+            // create a new NFT! This is where the NFT's core ID gets created.
+            // Right now, it's just getting this ID from the idCount field, which
+            // merely increments up with each NFT minted. If we want to create more
+            // complex IDs with hashing etc., this would be the place to put that new ID
+            // generated from that technique.
             var newNFT <- create NFT(initID: self.idCount)
-            
-            // deposit it in the recipient's account using their reference
-            recipient.deposit(token: <-newNFT)
 
-            // change the id so that each ID is unique
-            self.idCount = self.idCount + UInt64(1)
+            // Increments the id so that each ID is unique
+            self.idCount = self.idCount + 1 as UInt64
+
+            return <-newNFT
         }
     }
 
@@ -118,13 +146,13 @@ pub contract DappState {
 
 
 		// store an empty NFT Collection in account storage
-        self.account.save(<-self.createEmptyCollection(), to: /storage/NFTCollection)
+        self.account.save(<-self.createEmptyCollection(), to: /storage/DappStateCollection)
 
         // publish a reference to the Collection in storage
-        self.account.link<&{NFTReceiver}>(/public/NFTReceiver, target: /storage/NFTCollection)
+        self.account.link<&{NFTReceiver}>(/public/NFTReceiver, target: /storage/DappStateCollection)
 
         // store a minter resource in account storage
-        self.account.save(<-create NFTMinter(), to: /storage/NFTMinter)
+        self.account.save(<-create NFTMinter(), to: /storage/DappStateMinter)
 
 
 
