@@ -35,9 +35,28 @@ export default class DappPage extends LitElement {
     //console.log(result);
   }
 
-  testMint = async e => {
-    //let result = await DappLib.mintNFT("01cf0e2f2f715450");
-    //console.log("Testing Minter: "+result);
+  getPages() {
+    return[
+    {
+        "name": "nft",
+        "title": "NFT Collection",
+        "description": "Test NFT Collection viewing page.",
+        "category": "Non-fungible Tokens",
+        "route": "/nft"
+    }
+  ]; 
+  }
+
+  handleClick = e => {
+    e.preventDefault();
+    console.log("E: " + e.target.dataset.link);
+    this.setPageLoader(e.target.dataset.link);
+  };
+
+  setPageLoader(name) {
+    let pageLoader = document.getElementById("page-loader");
+    pageLoader.load(name, this.getPages());
+    this.requestUpdate();
   }
 
   render() {
@@ -52,7 +71,17 @@ export default class DappPage extends LitElement {
           </ul>
           <div class="row">
             <div id="sdbutton" class="column">
-              <img src=${sd} width="133" alt="SDZooLogo" title="SDZoo"/>
+              ${this.getPages().map(page => html`
+              <button>
+                <img 
+                  src=${sd} 
+                  width="133" 
+                  alt="SDZooLogo" 
+                  title="SDZoo" 
+                  @click=${this.handleClick} 
+                  data-link=${page.name}>
+                </img>`)}
+              </button>
               <input 
                 type="hidden"
                 data-field="account"
