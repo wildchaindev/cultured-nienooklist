@@ -68,7 +68,7 @@ pub contract DappState {
         // metadata to the token, the addition of metadata is confined to the minting execution.
         pub fun deposit(token: @NFT, metadata: {String : String}) {
             self.metadataObjs[token.id] = metadata
-            self.ownedNFTS[token.id] <-! token
+            self.ownedNFTs[token.id] <-! token
             // As opposed to this other technique,
             // adding the new token to the dictionary which removes the old one:
             //let oldToken <- self.ownedNFTs[token.id] <- token
