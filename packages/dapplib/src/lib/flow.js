@@ -216,7 +216,6 @@ class Flow {
 
         // Add the actual interaction code
         builders.push(tx);
-
         // If there are any params, add those here
         if (options.params && Array.isArray(options.params)) {
             console.log("optParams: " + options.params)
@@ -286,9 +285,9 @@ class Flow {
     //     console.log(JSON.stringify(JSON.parse(response), null, 2))    
 
     // SEND TRANSACTION TO BLOCKCHAIN
-
+    console.log("Sending Transaction")   
     return await fcl.send(builders, { node: this.serviceUri });
-
+        
     }
 
 }
