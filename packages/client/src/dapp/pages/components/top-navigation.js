@@ -31,11 +31,6 @@ export default class TopNavigation extends LitElement {
         name: "test",
         title: "Test Page",
         route: "/test"
-      },
-      {
-        name: "basic_nft",
-        title: "Basic NFT Page",
-        route: "/basic-nft"
       }
     ];
     return staticPages;
