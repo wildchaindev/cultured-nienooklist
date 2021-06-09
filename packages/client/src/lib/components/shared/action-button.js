@@ -22,6 +22,8 @@ export default class ActionButton extends LitElement {
   @property()
   text;
   @property()
+  id;
+  @property()
   "event-click";
 
   @property({ type: Function })
