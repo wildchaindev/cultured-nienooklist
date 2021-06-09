@@ -7,7 +7,7 @@ transaction(nftId: UInt64, receiver: Address) {
     prepare(acct: AuthAccount) {
 
         // Borrow a reference from the stored collection
-        let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/NFTCollection)
+        let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/DappStateCollection)
             ?? panic("Could not borrow a reference to the owner's collection")
         
         // Call the withdraw function on the sender's Collection
@@ -26,7 +26,7 @@ transaction(nftId: UInt64, receiver: Address) {
             ?? panic("Could not borrow receiver reference")
 
         // Deposit the NFT in the receivers collection
-        receiverRef.deposit(token: <-self.transferToken)
+        receiverRef.deposit(token: <-self.transferToken, metadata: {})
     }
 }
  
