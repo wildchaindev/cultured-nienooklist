@@ -1,19 +1,17 @@
-import DappState from 0x01cf0e2f2f715450
-
 transaction {
     // If the person executing this transaction doesn't have access to the
     // resource, then the transaction will fail. Thus, references...
-    let receiverRef: &{PinataPartyContract.NFTReceiver}
-    let minterRef: &PinataPartyContract.NFTMinter
+    let receiverRef: &{DappState.NFTReceiver}
+    let minterRef: &DappState.NFTMinter
 
     // ...in "prepare", the code borrows capabilities on the two resources referenced above,
     // takes in information of the person executing the transaction, and validates.
     prepare(acct: AuthAccount) {
-        self.receiverRef = acct.getCapability<&{PinataPartyContract.NFTReceiver}>(/public/NFTReceiver)
+        self.receiverRef = acct.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
             .borrow()
             ?? panic("Could not borrow minter reference.")
 
-        self.minterRef = acct.borrow<&PinataPartyContract.NFTMinter>(from: /storage/NFTMinter)
+        self.minterRef = acct.borrow<&DappState.NFTMinter>(from: /storage/DappStateMinter)
             ?? panic("Could not borrow minter reference.")
     }
 
