@@ -54,6 +54,7 @@ module.exports = class Blockchain {
     static async post(env, tx, args) {
         console.log("Testing Post")
         let proposer = typeof env.roles.proposer === 'string' ? env.roles.proposer : env.config.accounts[0];
+        console.log("Proposer: " + proposer)
         let roleInfo = {
             [Flow.Roles.PROPOSER]: proposer,
             [Flow.Roles.AUTHORIZERS]: env.roles.authorizers && Array.isArray(env.roles.authorizers) && env.roles.authorizers.length > 0 ? env.roles.authorizers : [ proposer ],
@@ -98,7 +99,7 @@ module.exports = class Blockchain {
         let flow = new Flow(env.config);
         let response = await flow.executeTransaction(DappTransactions[tx](env.imports), options);
         let resultData = await Flow.decode(response);
-        console.log("response: " + response)
+        console.log("postResponse: " + response)
         console.log("resultData: " + resultData)
         return {
             callAccount: proposer,
