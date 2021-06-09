@@ -51,6 +51,20 @@ export default class TestPage extends LitElement {
                   </account-widget>
                 </action-card>  
                 <action-card
+                  title="Initialize Account"
+                  description="Initializes an account so it can receive a NFT"
+                  action="initializeAccount"
+                  method="post"
+                  fields="account"
+                  >
+                    <account-widget
+                      field="account"
+                      label="Account"
+                      placeholder="Account address"
+                      >
+                    </account-widget>
+                </action-card>
+                <action-card
                   title="Mint NFT"
                   description="Mints an NFT"
                   action="mintNFT"
