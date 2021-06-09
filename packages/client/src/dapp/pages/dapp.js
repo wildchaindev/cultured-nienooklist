@@ -75,7 +75,7 @@ export default class DappPage extends LitElement {
               <button>
                 <img 
                   src=${sd} 
-                  width="133" 
+                  id=icon
                   alt="SDZooLogo" 
                   title="SDZoo" 
                   @click=${this.handleClick} 
@@ -94,39 +94,23 @@ export default class DappPage extends LitElement {
                   method="post"
                   fields="account"
                   text="Mint NFT"
-                  class="mt-4"
-                  .click=${this.testMint}
-                 >
-                </action-button¯>    
+                  class="mt-4">
+                </action-button>    
             </div>
             <div class="column">
-              <img src=${bronx} width="133" alt="BronxZooLogo" title="BronxZoo"/>
+              <img src=${bronx} id=icon
+              alt="BronxZooLogo" title="BronxZoo"/>
             </div>
             <div class="column">
-              <img src=${oak} width="133" alt="OakZooLogo" title="OakZoo"/>
+              <img src=${oak} id=icon
+              alt="OakZooLogo" title="OakZoo"/>
             </div>
             <div class="column">
-              <img src=${elm} width="133" alt="ElmZooLogo" title="ElmZoo"/>
+              <img src=${elm} id=icon
+              alt="ElmZooLogo" title="ElmZoo"/>
             </div>
           </div>
         </div>
-        <div class="container m-auto">
-        
-        <action-card
-                  title="Get NFT IDs"
-                  description="Gets NFT IDs for Account"
-                  action="getIDs"
-                  method="get"
-                  fields="account"
-                 >
-                  <account-widget
-                    field="account"
-                    label="Account"
-                    placeholder="Account address"
-                    >
-                  </account-widget>
-                </action-card>
-          </div>
       </div>
     `;
     return content;
