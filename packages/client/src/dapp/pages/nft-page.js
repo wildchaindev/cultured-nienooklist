@@ -6,6 +6,7 @@ import "../../lib/components/widgets/text-widget.js";
 import "../../lib/components/widgets/number-widget.js";
 import "../../lib/components/widgets/account-widget.js";
 import "../../lib/components/widgets/upload-widget.js";
+import sd from "../assets/img/ZooLogos/SanDiego.png";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { LitElement, html, customElement, property } from "lit-element";
 
@@ -21,6 +22,8 @@ export default class NftPage extends LitElement {
   category;
   @property()
   description;
+  @property()
+  src;
 
   createRenderRoot() {
     return this;
@@ -31,7 +34,7 @@ export default class NftPage extends LitElement {
 
   handleClick = e => {
     let actionBtn = document.getElementById("IDbtn");
-    //console.log("Test Result Panel: " + actionBtn.action)
+    console.log("Test Result Panel: " + actionBtn.action)
     if (actionBtn.action) {
       let resultPanel = document.getElementById("resultPanel");
       while (resultPanel.firstChild) {
@@ -84,6 +87,16 @@ export default class NftPage extends LitElement {
             <div class="row fadeIn mt-3 p-2 block">
             <p class="mt-3">
               Test page for viewing NFT metadata
+              <div class="row">
+                <img 
+                  src=${sd} 
+                  id=viewIcon
+                  alt="SDZooLogo" 
+                  title="SDZoo" 
+                  class=center>
+                </img>
+              </div>
+              <div class="row">
               <div id="viewID" class="column">
                 <input 
                  type="hidden"
@@ -102,6 +115,12 @@ export default class NftPage extends LitElement {
                    class="mt-4"
                   >
                   </action-button>
+              </div>
+              <div id="viewID" class="column">
+                <input 
+                 type="hidden"
+                 data-field="account"
+                 value='0x01cf0e2f2f715450'>
                   <action-button
                    id=IDbtn
                    source="#viewID"
@@ -115,6 +134,25 @@ export default class NftPage extends LitElement {
                    class="mt-4"
                   >
                   </action-button>
+              </div>
+              <div id="mintBtn" class="column">
+                <input 
+                  type="hidden"
+                  data-field="account"
+                  value='01cf0e2f2f715450'>
+                <action-button
+                  id=IDbtn
+                  source="#mintBtn"
+                  title="Mint NFT"
+                  description="Mints an NFT"
+                  action="mintNFT"
+                  method="post"
+                  fields="account"
+                  text="Mint NFT"
+                  class="mt-4">
+                  .click=${this.handleClick}
+                </action-button>
+              </div>
               </div>
             </p>
             </div>

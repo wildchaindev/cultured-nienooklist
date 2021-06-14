@@ -64,11 +64,6 @@ export default class DappPage extends LitElement {
       <div class="container m-auto">
         <div class="row fadeIn mt-3 p-2 block">
           <h2 class="text-6xl">Wildchain Prototype</h2>
-          <h3 class="mt-3 text-3xl">Next Steps</h3>
-          <ul class="mt-3 ml-5 list-decimal">
-            <li class="mt-3">Interact with the feature modules you selected with the UI Harness</li>
-            <li class="mt-3">Customize this page by editing <i>packages/client/src/pages/dapp.js</i></li>
-          </ul>
           <div class="row">
             <div id="sdbutton" class="column">
               ${this.getPages().map(page => html`
@@ -81,21 +76,7 @@ export default class DappPage extends LitElement {
                   @click=${this.handleClick} 
                   data-link=${page.name}>
                 </img>`)}
-              </button>
-              <input 
-                type="hidden"
-                data-field="account"
-                value='01cf0e2f2f715450'>
-              <action-button
-                  source="#sdbutton"
-                  title="Mint NFT"
-                  description="Mints an NFT"
-                  action="mintNFT"
-                  method="post"
-                  fields="account"
-                  text="Mint NFT"
-                  class="mt-4">
-                </action-button>    
+              </button>    
             </div>
             <div class="column">
               <img src=${bronx} id=icon

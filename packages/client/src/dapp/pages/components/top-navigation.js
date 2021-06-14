@@ -22,11 +22,11 @@ export default class TopNavigation extends LitElement {
         title: "Home",
         route: "/"
       },
-      {
+      /*{
         name: "harness",
         title: "UI Harness",
         route: "/harness"
-      },
+      },*/
       {
         name: "test",
         title: "Test Page",

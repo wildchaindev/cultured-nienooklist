@@ -25,10 +25,10 @@ module.exports = class DappScripts {
 		return fcl.script`
 				
 				${DappScripts.injectImports(imports)}
-				pub fun main() : {String : String} {
+				pub fun main(account: Address) : {String : String} {
 				    // Account that owns the NFT. 
 				    // In this case, this is the same account as the one that minted the NFT and deployed the contract.
-				    let nftOwner = getAccount(0x01cf0e2f2f715450)
+				    let nftOwner = getAccount(account)
 				    log("NFT Owner")
 				    // Simply borrows all capabilities that are available by access levels as defined by the contract
 				    let capability = nftOwner.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
