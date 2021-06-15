@@ -1,11 +1,11 @@
 transaction {
-    // If the person executing this transaction doesn't have access to the
-    // resource, then the transaction will fail. Thus, references...
+    // If the person executing this tx doesn't have access to the
+    // resource, then the tx will fail. Thus, references...
     let receiverRef: &{DappState.NFTReceiver}
     let minterRef: &DappState.NFTMinter
 
     // ...in "prepare", the code borrows capabilities on the two resources referenced above,
-    // takes in information of the person executing the transaction, and validates.
+    // takes in information of the person executing the tx, and validates.
     prepare(acct: AuthAccount) {
         self.receiverRef = acct.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
             .borrow()
