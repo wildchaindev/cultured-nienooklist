@@ -116,19 +116,25 @@ export default class NftPage extends LitElement {
                   >
                   </action-button>
               </div>
-              <div id="viewID" class="column">
+              <div id="viewMeta" class="column">
                 <input 
                  type="hidden"
                  data-field="account"
                  value='0x01cf0e2f2f715450'>
+                 <label for="nftIDMeta" class="mt-3"><b>NFT ID</b></label><br>
+                    <input
+                      type="text"
+                      id="nftIDMeta"
+                      data-field="id"
+                      value='1'>
                   <action-button
                    id=IDbtn
-                   source="#viewID"
+                   source="#viewMeta"
                    title="View Metadata"
                    description="Views NFT Metadata"
                    action="getMetadata"
                    method="get"
-                   fields="account"
+                   fields="account id"
                    .click=${this.handleClick}
                    text="View Metadata"
                    class="mt-4"
@@ -154,12 +160,43 @@ export default class NftPage extends LitElement {
                 </action-button>
               </div>
               </div>
+              <page-panel id="resultPanel"></page-panel>
+              <page-panel id="imgPanel"></page-panel>
+              <div class="row">
+                <action-card
+                  title="Mint Custom NFT"
+                  description="Mint NFT with custom metadata"
+                  action="mintCustomNFT"
+                  method="post"
+                  fields="keys values account"
+                >
+                <input 
+                 type="hidden"
+                 data-field="account"
+                 value='0x01cf0e2f2f715450'>
+                <div class="row">
+                  <div class="column">
+                    <label for="Key" class="mt-3"><b>Key</b></label><br>
+                    <input
+                      type="text"
+                      id="Key"
+                      data-field="keys"
+                      value='Enter Key Here'>
+                  </div>
+                  <div class="column">
+                    <label for="Value" class="mt-3"><b>Value</b></label><br>
+                    <input
+                      type="text"
+                      id="Value"
+                      data-field="values"
+                      value='Enter Value Here'>
+                  </div>
+                </action-card>  
+              </div>
             </p>
             </div>
         </div>
       </page-body>
-      <page-panel id="resultPanel"></page-panel>
-      <page-panel id="imgPanel"></page-panel>
     `;
     return content;
 
