@@ -47,9 +47,12 @@ export default class ActionCard extends LitElement {
     if (this.action) {
       let resultPanel = document.getElementById("resultPanel");
       console.log(e.detail.info.type);
+      console.log(this.action);
+      console.log(this.method);
+      console.log(e);
       if (e.detail.info.type === DappLib.DAPP_RESULT_ERROR) {
         resultPanel.prepend(e.detail.node);
-        resultPanel.open();
+        //resultPanel.open();
       } else {
         if (this.method === "get" || this.method === 'post' || this.method === "deployContract") {
           let existing = this.querySelectorAll(
@@ -63,7 +66,7 @@ export default class ActionCard extends LitElement {
             targetPanel.prepend(e.detail.node);
           } else {
             resultPanel.prepend(e.detail.node);
-            resultPanel.open();
+            //resultPanel.open();
           }
         }
       }
