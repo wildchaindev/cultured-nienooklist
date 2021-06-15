@@ -101,6 +101,7 @@ export default class TestPage extends LitElement {
                  >
                  <label for="NFT-ID" class="mt-3"><b>NFT ID</b></label><br>
                  <input
+                 type="text"
                  id="NFT-ID"
                  data-field="id"
                  value='1'>
