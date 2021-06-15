@@ -25,11 +25,19 @@ module.exports = class Blockchain {
                         value: args[arg],
                         type: t.String
                     });
-                } else if (typeof args[arg] === 'string'){ // Temporary Solution
-                    console.log("Pushed");
+                }
+                else if (typeof args[arg] === 'string'){ // Temporary Solution
+                    console.log("Pushed Address");
                     options.args.push({
                         value: args[arg],
                         type: t.Address
+                    });
+                }
+                else if (typeof args[arg] === 'number'){ // Temporary Solution
+                    console.log("Pushed num");
+                    options.args.push({
+                        value: args[arg],
+                        type: t.UInt64
                     });
                 }
                 else {
@@ -76,8 +84,15 @@ module.exports = class Blockchain {
                         value: args[arg],
                         type: t.String
                     });
-                } else if (typeof args[arg] === 'string'){ // Temporary Solution
-                    console.log("Pushed");
+                } else if (args[arg].substring(0,4) == 'data'){ // Temporary Solution
+                    console.log("Pushed Data");
+                    options.args.push({
+                        value: args[arg].substring(4),
+                        type: t.String
+                    });
+                }
+                else if (typeof args[arg] === 'string'){ // Temporary Solution
+                    console.log("Pushed Address");
                     options.args.push({
                         value: args[arg],
                         type: t.Address
