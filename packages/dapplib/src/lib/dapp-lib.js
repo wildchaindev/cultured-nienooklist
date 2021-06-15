@@ -279,7 +279,32 @@ return {
 }
 }
 
-// In Progress
+static async mintCustomNFT(data) {
+    console.log("Custom Test Data key: " + data.keys);
+    console.log("Custom Test Data val: " + data.values);
+    let result = await Blockchain.post({
+        config: DappLib.getConfig(),
+        imports: {
+            DappState: data.account
+        },
+        roles: {
+            proposer: data.account
+        }
+    },
+    'mint_custom_metadata',
+    {
+        KeysData: "data" + data.keys, 
+        ValuesData: "data" + data.values
+    }
+);
+
+return {
+    type: DappLib.DAPP_RESULT_TX_HASH,
+    label: 'Transaction Hash',
+    result: result.callData.transactionId
+}
+}
+
 static async transferNFT(data) {
     console.log("sender: " + data.sender)
     console.log("receiver: " + data.receiver)
@@ -343,7 +368,7 @@ static async getMetadata(data) {
     let result = await Blockchain.get({
             config: DappLib.getConfig(),
             imports: {
-                DappState: "0x01cf0e2f2f715450"
+                DappState: data.account
             },
             roles: {
                 proposer: data.account
@@ -351,7 +376,8 @@ static async getMetadata(data) {
         },
         'check_token_metadata', 
         {
-            account: data.account
+            account: data.account,
+            nftId: parseInt(data.id)
         }
         );
 
