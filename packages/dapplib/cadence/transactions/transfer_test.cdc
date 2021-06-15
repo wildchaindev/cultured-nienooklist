@@ -3,12 +3,15 @@ transaction(nftId: UInt64, receiver: Address) {
     // The field that will hold the NFT as it is being
     // transferred to the other account
     let transferToken: @DappState.NFT
-	
+	let nftMetadata: {String : String}
     prepare(acct: AuthAccount) {
 
         // Borrow a reference from the stored collection
         let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/DappStateCollection)
             ?? panic("Could not borrow a reference to the owner's collection")
+
+        self.nftMetadata = collectionRef.getMetadata(id: nftId)
+        collectionRef.updateMetadata(id: nftId, metadata: {})
         
         // Call the withdraw function on the sender's Collection
         // to move the NFT out of the collection
@@ -26,7 +29,7 @@ transaction(nftId: UInt64, receiver: Address) {
             ?? panic("Could not borrow receiver reference")
 
         // Deposit the NFT in the receivers collection
-        receiverRef.deposit(token: <-self.transferToken, metadata: {})
+        receiverRef.deposit(token: <-self.transferToken, metadata: self.nftMetadata)
     }
 }
  
