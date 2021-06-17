@@ -78,17 +78,44 @@ export default class DappPage extends LitElement {
                 </img>`)}
               </button>    
             </div>
-            <div class="column">
-              <img src=${bronx} id=icon
-              alt="BronxZooLogo" title="BronxZoo"/>
+            <div id="brbutton" class="column">
+              ${this.getPages().map(page => html`
+              <button>
+                <img 
+                  src=${bronx} 
+                  id=icon
+                  alt="BronxZooLogo" 
+                  title="BronxZoo"
+                  @click=${this.handleClick}
+                  data-link=${page.name}>
+                </img/>`)}
+              </button>
             </div>
-            <div class="column">
-              <img src=${oak} id=icon
-              alt="OakZooLogo" title="OakZoo"/>
+            <div id="oakbutton" class="column">
+              ${this.getPages().map(page => html`
+              <button>
+                <img 
+                  src=${oak} 
+                  id=icon
+                  alt="OakZooLogo" 
+                  title="OakZoo"
+                  @click=${this.handleClick}
+                  data-link=${page.name}>
+                </img/>`)}
+              </button>
             </div>
-            <div class="column">
-              <img src=${elm} id=icon
-              alt="ElmZooLogo" title="ElmZoo"/>
+            <div id="elmbutton" class="column">
+              ${this.getPages().map(page => html`
+              <button>
+                <img 
+                  src=${elm} 
+                  id=icon
+                  alt="ElmZooLogo" 
+                  title="ElmZoo"
+                  @click=${this.handleClick}
+                  data-link=${page.name}>
+                </img/>`)}
+              </button>
             </div>
           </div>
         </div>
