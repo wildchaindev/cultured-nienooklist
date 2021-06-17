@@ -35,20 +35,53 @@ module.exports = class DappTransactions {
 		`;
 	}
 
-	static mint_metadata(imports) {
+	static mint_custom_metadata(imports) {
 		return fcl.transaction`
 				${DappTransactions.injectImports(imports)}
-				transaction {
-				${DappTransactions.injectImports(imports)}
-				    // If the person executing this transaction doesn't have access to the
-				${DappTransactions.injectImports(imports)}
-				    // resource, then the transaction will fail. Thus, references...
+				transaction(KeysData: String, ValuesData: String) {
+				    // If the person executing this tx doesn't have access to the
+				    // resource, then the tx will fail. Thus, references...
 				    let receiverRef: &{DappState.NFTReceiver}
 				    let minterRef: &DappState.NFTMinter
 				
 				    // ...in "prepare", the code borrows capabilities on the two resources referenced above,
+				    // takes in information of the person executing the tx, and validates.
+				    prepare(acct: AuthAccount) {
+				        self.receiverRef = acct.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
+				            .borrow()
+				            ?? panic("Could not borrow minter reference.")
+				
+				        self.minterRef = acct.borrow<&DappState.NFTMinter>(from: /storage/DappStateMinter)
+				            ?? panic("Could not borrow minter reference.")
+				    }
+				
+				    execute {
+				
+				        let metadata : {String : String} = {KeysData : ValuesData} //{KeysData.slice(from: 4, upTo: KeysData.length): ValuesData.slice(from: 4, upTo: ValuesData.length)}
+				
+				        // This is where the NFT resource itself is created
+				        let newNFT <- self.minterRef.mintNFT()
+				
+				        // This is where the metadata comes into the picture to join with the new NFT!
+				        self.receiverRef.deposit(token: <-newNFT, metadata: metadata)
+				
+				        log("NFT has been minted and deposited to Account's Collection")
+				    }
+				}
+		`;
+	}
+
+	static mint_metadata(imports) {
+		return fcl.transaction`
 				${DappTransactions.injectImports(imports)}
-				    // takes in information of the person executing the transaction, and validates.
+				transaction {
+				    // If the person executing this tx doesn't have access to the
+				    // resource, then the tx will fail. Thus, references...
+				    let receiverRef: &{DappState.NFTReceiver}
+				    let minterRef: &DappState.NFTMinter
+				
+				    // ...in "prepare", the code borrows capabilities on the two resources referenced above,
+				    // takes in information of the person executing the tx, and validates.
 				    prepare(acct: AuthAccount) {
 				        self.receiverRef = acct.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
 				            .borrow()
@@ -176,12 +209,15 @@ module.exports = class DappTransactions {
 				    // The field that will hold the NFT as it is being
 				    // transferred to the other account
 				    let transferToken: @DappState.NFT
-					
+					let nftMetadata: {String : String}
 				    prepare(acct: AuthAccount) {
 				
 				        // Borrow a reference from the stored collection
 				        let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/DappStateCollection)
 				            ?? panic("Could not borrow a reference to the owner's collection")
+				
+				        self.nftMetadata = collectionRef.getMetadata(id: nftId)
+				        collectionRef.updateMetadata(id: nftId, metadata: {})
 				        
 				        // Call the withdraw function on the sender's Collection
 				        // to move the NFT out of the collection
@@ -199,7 +235,7 @@ module.exports = class DappTransactions {
 				            ?? panic("Could not borrow receiver reference")
 				
 				        // Deposit the NFT in the receivers collection
-				        receiverRef.deposit(token: <-self.transferToken, metadata: {})
+				        receiverRef.deposit(token: <-self.transferToken, metadata: self.nftMetadata)
 				    }
 				}
 				 
