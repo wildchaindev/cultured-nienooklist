@@ -62,7 +62,7 @@ export default class NftPage extends LitElement {
             //console.log("PanelType: " + imgPanel)
             let nftImage = document.createElement("img");
             nftImage.width = "133";
-            nftImage.src = `https://ipfs.io/ipfs/${ipfsHash}/sandiegodisgruntledgiraffe.jpeg`;
+            nftImage.src = `https://ipfs.io/ipfs/${ipfsHash}`;
             //imgPanel.append(nftImage)
             resultPanel.lastChild.append(nftImage);
             //resultPanel.open();
