@@ -28,7 +28,7 @@ pub contract WildToken {
     // A reference to this contract's Vault must be stored in an account's storage for the account to receive
     // this contract's type of fungible token
     pub resource Vault: Provider, Receiver, Balance {
-        pub var balance: UFIX64
+        pub var balance: UFix64
 
         init(balance: UFix64) {
             self.balance = balance
